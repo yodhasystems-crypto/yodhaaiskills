@@ -4,6 +4,27 @@ description: Scans a codebase and its docs for distinct technical mechanisms, th
 ---
 
 <!--
+Copyright 2026 Yodha Systems LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+This license covers this skill file only. It does not grant any rights to
+the Patlas MCP server, its API, or the underlying service this skill calls
+into — use of Patlas is governed separately by its Terms of Service at
+https://patlas.dev/terms.
+-->
+
+<!--
 This skill's filter criteria (step 3) and no-verdict framing restate what's
 in src/mcp/prompts/patentScan.ts (the patent_scan MCP prompt, Option A) —
 the two aren't generated from a shared source, so a wording change to

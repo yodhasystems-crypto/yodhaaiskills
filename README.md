@@ -23,4 +23,4 @@ Claude Code picks up any `SKILL.md` under `.claude/skills/<name>/` automatically
 
 ## License
 
-Apache 2.0 — see [LICENSE](LICENSE).
+The skill files in this repository are licensed under Apache 2.0 — see [LICENSE](LICENSE). This license covers the skills themselves (the instructions Claude Code follows) only. It does not grant any rights to the Patlas MCP server, its API, or the underlying service some skills call into — that remains a separate, paid product governed by its own [Terms of Service](https://patlas.dev/terms).
