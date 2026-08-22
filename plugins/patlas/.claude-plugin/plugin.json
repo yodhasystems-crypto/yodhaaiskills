@@ -1,0 +1,12 @@
+{
+  "name": "patlas",
+  "description": "Prior-art patent search for your codebase. Adds the /patlas:patent-scan skill and connects the Patlas MCP server (search_prior_art, get_patent_detail, compare_claims) automatically — no manual MCP setup or API key needed, sign in with GitHub on first use.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Yodha Systems LLC",
+    "url": "https://patlas.dev"
+  },
+  "homepage": "https://patlas.dev",
+  "repository": "https://github.com/yodhasystems-crypto/yodhaaiskills",
+  "license": "Apache-2.0"
+}

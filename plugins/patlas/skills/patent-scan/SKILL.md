@@ -24,16 +24,9 @@ into — use of Patlas is governed separately by its Terms of Service at
 https://patlas.dev/terms.
 -->
 
-<!--
-This skill's filter criteria (step 3) and no-verdict framing restate what's
-in src/mcp/prompts/patentScan.ts (the patent_scan MCP prompt, Option A) —
-the two aren't generated from a shared source, so a wording change to
-either should be mirrored in the other.
--->
-
 ## Prerequisites
 
-This skill drives the Patlas MCP server's tools (`search_prior_art`, `compare_claims`) — it does no patent search of its own. If those tools aren't available in this session, tell the user to connect Patlas first (`docs/User-Guide.md` §2 in the patlas_app repo, or https://patlas.dev for a general audience) and stop.
+This skill drives the Patlas MCP server's tools — it does no patent search of its own. **Resolve the actual tool names before calling anything**: look through the tools available in this session for names matching `*search_prior_art` and `*compare_claims`. A connected remote MCP server's tools are commonly exposed with a `mcp__<server-name>__<tool-name>` prefix (e.g. `mcp__patlas__search_prior_art`), not the bare name — use whichever matching name is actually present in this session's tool list. If neither a bare name nor a `*search_prior_art`-suffixed name is found, Patlas isn't connected: tell the user to connect it first (sign in with GitHub — no API key needed — by pointing an MCP client at `https://patlas.dev/mcp`; see https://patlas.dev for details) and stop. Don't assume the user has any particular codebase available beyond the one they're asking you to scan — this skill runs against *their* project, not Patlas's own.
 
 `compare_claims` is PAYG/Subscription tier only. If a call to it fails with `QUOTA_EXCEEDED`, don't retry it — continue with `search_prior_art`-only results for the rest of the scan, and say plainly in the final report that claim-level comparison was skipped because it's not available on the connected key's tier.
 
@@ -48,9 +41,9 @@ This skill drives the Patlas MCP server's tools (`search_prior_art`, `compare_cl
    - **Real:** only keep mechanisms you can point to in actual code or docs — don't infer or invent one just to have something to report.
    Drop anything that's a standard, well-known engineering pattern with nothing distinctive about this specific implementation — not worth spending a search on.
 
-4. **Search.** For each remaining candidate, call `search_prior_art` with a clear, specific description of that one mechanism (not the whole module, not the whole product).
+4. **Search.** For each remaining candidate, call the resolved `search_prior_art` tool (see Prerequisites) with a clear, specific description of that one mechanism (not the whole module, not the whole product).
 
-5. **Compare.** For candidates where `search_prior_art` returns close matches, call `compare_claims` against the closest one or two results, tier permitting (see Prerequisites).
+5. **Compare.** For candidates where `search_prior_art` returns close matches, call the resolved `compare_claims` tool against the closest one or two results, tier permitting (see Prerequisites).
 
 6. **Report.** Summarize per candidate: what it is, where it lives, what was found (or that nothing close was found), and the claim-level comparison if one was run. Offer to write the summary to a file (e.g. `PRIOR_ART_SCAN.md`) if the user wants it persisted — don't write one unasked.
 
@@ -63,4 +56,4 @@ False positives — flagging routine or non-patent-eligible code (plain business
 ## Example
 
 - **User:** "Scan this repo for anything worth checking against prior art before we talk to a lawyer."
-- **Agent:** Reads the repo (spawning subagents per module if it's large), settles on a short list of distinct, real mechanisms, runs `search_prior_art` on each, runs `compare_claims` on the closest matches (if the tier allows), and reports back a per-candidate summary framed as "worth checking further" — never as a verdict.
+- **Agent:** Reads the repo (spawning subagents per module if it's large), settles on a short list of distinct, real mechanisms, resolves the actual `search_prior_art`/`compare_claims` tool names for this session (see Prerequisites), runs `search_prior_art` on each candidate, runs `compare_claims` on the closest matches (if the tier allows), and reports back a per-candidate summary framed as "worth checking further" — never as a verdict.

@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "patlas": {
+      "type": "http",
+      "url": "https://patlas.dev/mcp"
+    }
+  }
+}

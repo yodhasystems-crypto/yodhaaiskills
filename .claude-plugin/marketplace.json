@@ -1,0 +1,15 @@
+{
+  "name": "yodhaaiskills",
+  "owner": {
+    "name": "Yodha Systems LLC",
+    "url": "https://patlas.dev"
+  },
+  "description": "Free Claude Code plugins from Yodha Systems.",
+  "plugins": [
+    {
+      "name": "patlas",
+      "source": "./plugins/patlas",
+      "description": "Adds the /patlas:patent-scan skill and connects the Patlas MCP server (prior-art search over your codebase) in one install."
+    }
+  ]
+}
